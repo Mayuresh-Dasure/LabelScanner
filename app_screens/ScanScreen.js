@@ -91,7 +91,7 @@ export default function ScanScreen({ navigation }) {
 
       {/* Top Controls (Close & Flash) */}
       <View style={styles.topControls}>
-        <TouchableOpacity style={styles.iconButton} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.iconButton} onPress={() => navigation.navigate('Today')}>
           <MaterialIcons name="close" size={28} color="#fff" />
         </TouchableOpacity>
 
