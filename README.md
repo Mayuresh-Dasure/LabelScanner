@@ -8,7 +8,7 @@
 ---
 
 ## 🚀 Overview
-**NutriScanner** is an AI-powered mobile assistant that helps you decode complex food labels in seconds. By simply snapping a photo, our app uses **Google's Gemini 2.0 Flash** model to analyze ingredients, identify hidden sugars or allergens, and provide a personalized **Health Score**.
+**NutriScanner** is an AI-powered mobile assistant that helps you decode complex food labels in seconds. By simply snapping a photo, our app uses **Google's Gemini 3.0 Flash** model to analyze ingredients, identify hidden sugars or allergens, and provide a personalized **Health Score**.
 
 Built for **GDG TechSprint**, this project bridges the gap between complex nutritional data and everyday consumer choices.
 
