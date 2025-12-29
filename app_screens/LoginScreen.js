@@ -1,7 +1,7 @@
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -14,6 +14,14 @@ import {
   View,
   ActivityIndicator
 } from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withSequence,
+  withTiming,
+  Easing
+} from 'react-native-reanimated';
 import { auth } from '../services/firebaseConfig'; // Ensure this path is correct based on project structure
 import { RADIUS, SPACING } from '../constants/theme';
 
@@ -22,6 +30,26 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+
+  // Animation values
+  const translateY = useSharedValue(0);
+
+  useEffect(() => {
+    translateY.value = withRepeat(
+      withSequence(
+        withTiming(-10, { duration: 1500, easing: Easing.inOut(Easing.ease) }),
+        withTiming(0, { duration: 1500, easing: Easing.inOut(Easing.ease) })
+      ),
+      -1, // Infinite repeat
+      true // Reverse
+    );
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: translateY.value }],
+    };
+  });
 
   // New: Inline error state
   const [errorDetails, setErrorDetails] = useState('');
@@ -94,10 +122,10 @@ export default function LoginScreen({ navigation }) {
 
         {/* Header Section */}
         <View style={styles.header}>
-          <View style={styles.logoRow}>
-            <Ionicons name="nutrition" size={32} color="#10b981" />
+          <Animated.View style={[styles.logoRow, animatedStyle]}>
+            <Ionicons name="nutrition" size={40} color="#10b981" />
             <Text style={styles.appName}>NutriScan<Text style={{ color: '#10b981' }}>AI</Text></Text>
-          </View>
+          </Animated.View>
           <Text style={styles.headerTitle}>{isLogin ? 'Welcome Back' : 'Create Account'}</Text>
           <Text style={styles.headerSubtitle}>{isLogin ? 'Sign in to continue your healthy journey' : 'Start your personalized nutrition plan today'}</Text>
         </View>
@@ -212,11 +240,11 @@ const styles = StyleSheet.create({
   logoRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 16
+    gap: 12,
+    marginBottom: 20
   },
   appName: {
-    fontSize: 24,
+    fontSize: 34,
     fontWeight: '800',
     color: '#fff',
     letterSpacing: -0.5,
