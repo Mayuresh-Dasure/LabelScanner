@@ -99,4 +99,3 @@ Got ideas? We'd love to hear them!
 ---
 
 > **Note for Judges:** This app was built to demonstrate the power of **multimodal AI (Gemini 3.0)** in solving real-world consumer problems.
-****
